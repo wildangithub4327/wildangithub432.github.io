@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h1>Tugas menghitung luas</h1>
+    <h1>Hasil perhitungan</h1>
+    <p>Buka <b>Console Browser (F12 > console) atau lihat dibawah ini:</b></p>
+
+    <script>
+        // --- 1. Menghitung Luas Persegi Panjang
+        // --- Rumus = Panjang * Lebar
+        let Panjang = 10;
+        let Lebar = 5;
+        let LuasPersegiPanjang = Panjang * Lebar;
+
+        console.log("Luas Persegi Panjang =" + LuasPersegiPanjang);
+
+        // --- 2. Menghitung luas bujur sangkar/persegi
+        // --- Rumus : sisi * sisi
+
+        let sisi = 8;
+        let LuasPersegi = sisi * sisi;
+
+        console.log("Luas bujursangkar adalah :" + LuasPersegi);
+
+        // --- 3. menghitung Luas Segitiga
+        // --- Rumus 0.5 * alas * tinggi
+
+        let alas = 6;
+        let tinggi = 8;
+        let Luassegitiga = 0.5 * alas * tinggi;
+
+        console.log("Luas Segitiga Adalah :" + Luassegitiga);
+
+        // Menampilkan Hasil ke Halaman HTML
+        document.getElementById("Hasil").innerHTML =
+            `<p>Panjang (${Panjang}) x Lebar (${Lebar}) = <b>${luasPersegiPanjang}</b></p>
+            <p>Sisi (${sisi}) x Sisi (${sisi}) = <b>${LuasPersegi}</b></p>
+            <p>0.5 x Alas (${alas}) x Tinggi (${tinggi}) = <b>${Luassegitiga}</b></p>`;
+    </script>
+</body>
+
+</html>
