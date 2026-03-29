@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // 1. Definisi Class Pelanggan
+        class Pelanggan {
+            constructor(nama, nomorTelepon) {
+                this.nama = nama;
+                this.nomorTelepon = nomorTelepon;
+                this.kendaraanDisewa = []; // Properti untuk menampung daftar kendaraan yang disewa
+            }
+
+            // 2. Metode untuk mencatat transaksi penyewaan
+            sewaKendaraan(namaKendaraan) {
+                this.kendaraanDisewa.push(namaKendaraan);
+                console.log(`Berhasil mencatat: ${this.nama} menyewa ${namaKendaraan}.`);
+            }
+
+            // Metode untuk menampilkan info penyewaan per pelanggan
+            tampilkanInfo() {
+                const daftarSewa = this.kendaraanDisewa.length > 0
+                    ? this.kendaraanDisewa.join(", ")
+                    : "Belum ada kendaraan";
+                return `Pelanggan: ${this.nama} | Telp: ${this.nomorTelepon} | Kendaraan: [${daftarSewa}]`;
+            }
+        }
+
+        // 3. Sistem untuk mengelola dan menampilkan daftar pelanggan
+        class SistemManajemenTransportasi {
+            constructor() {
+                this.daftarPelanggan = [];
+            }
+
+            tambahPelanggan(pelanggan) {
+                this.daftarPelanggan.push(pelanggan);
+            }
+
+            tampilkanDaftarPenyewa() {
+                console.log("\n=== DAFTAR PELANGGAN YANG SEDANG MENYEWA ===");
+                if (this.daftarPelanggan.length === 0) {
+                    console.log("Belum ada data pelanggan.");
+                    return;
+                }
+
+                this.daftarPelanggan.forEach((p, index) => {
+                    // Hanya menampilkan pelanggan yang memiliki kendaraan di daftar sewanya
+                    if (p.kendaraanDisewa.length > 0) {
+                        console.log(`${index + 1}. ${p.tampilkanInfo()}`);
+                    }
+                });
+                console.log("=============================================\n");
+            }
+        }
+
+        // --- PENGGUNAAN SISTEM ---
+
+        // Membuat instance sistem
+        const sistemNF = new SistemManajemenTransportasi();
+
+        // Membuat data pelanggan
+        const pelanggan1 = new Pelanggan("Andi", "08123456789");
+        const pelanggan2 = new Pelanggan("Budi", "08571234567");
+        const pelanggan3 = new Pelanggan("Citra", "08998877665");
+
+        // Menambahkan pelanggan ke sistem
+        sistemNF.tambahPelanggan(pelanggan1);
+        sistemNF.tambahPelanggan(pelanggan2);
+        sistemNF.tambahPelanggan(pelanggan3);
+
+        // Mencatat transaksi penyewaan
+        pelanggan1.sewaKendaraan("Mobil Toyota Avanza");
+        pelanggan1.sewaKendaraan("Motor Honda Vario");
+        pelanggan2.sewaKendaraan("Bus Pariwisata");
+        // Pelanggan 3 tidak menyewa apa pun (untuk testing)
+
+        // Menampilkan daftar pelanggan yang sedang menyewa
+        sistemNF.tampilkanDaftarPenyewa();
+    </script>
+</body>
+
+</html>
