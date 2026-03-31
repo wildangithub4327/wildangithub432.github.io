@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manajemen Produk Online</title>
+    <style>
+        body {
+            font-family: sans-serif;
+            margin: 20px;
+        }
+
+        .product-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Fitur Manajemen Produk</h2>
+
+    <input type="text" id="productName" placeholder="Nama Produk">
+    <input type="number" id="productPrice" placeholder="Harga">
+    <button id="addProduct">Tambah Produk</button>
+
+    <h3>Daftar Produk:</h3>
+    <div id="productList"></div>
+
+    <script>
+        // 1. List data produk awal (Minimal 5)
+        let products = [
+            { id: 1, name: "Laptop", price: 15000000 },
+            { id: 2, name: "Mouse", price: 200000 },
+            { id: 3, name: "Keyboard", price: 500000 },
+            { id: 4, name: "Monitor", price: 2500000 },
+            { id: 5, name: "Headset", price: 800000 }
+        ];
+
+        const productListDiv = document.getElementById("productList");
+
+        // 2. Fungsi Menampilkan Produk (Menggunakan Destructuring)
+        const displayProducts = () => {
+            productListDiv.innerHTML = "";
+            products.forEach((product) => {
+                // Destructuring properti dari object product
+                const { id, name, price } = product;
+
+                const div = document.createElement("div");
+                div.className = "product-item";
+                div.innerHTML = `
+                    <strong>${name}</strong> - Rp${price.toLocaleString()} 
+                    <button onclick="deleteProduct(${id})">Hapus</button>
+                `;
+                productListDiv.appendChild(div);
+            });
+        };
+
+        // 3. Fungsi Menambahkan Produk (Menggunakan Spread Operator)
+        const addProduct = () => {
+            const name = document.getElementById("productName").value;
+            const price = parseInt(document.getElementById("productPrice").value);
+
+            if (name && price) {
+                const newProduct = { id: Date.now(), name, price };
+
+                // Spread Operator untuk menambah array baru
+                products = [...products, newProduct];
+
+                displayProducts();
+                // Reset input
+                document.getElementById("productName").value = "";
+                document.getElementById("productPrice").value = "";
+            } else {
+                alert("Isi nama dan harga produk!");
+            }
+        };
+
+        // 4. Fungsi Menghapus Produk (Rest Parameter / Filter)
+        const deleteProduct = (idToDelete) => {
+            // Menggunakan filter untuk menghapus
+            products = products.filter(p => p.id !== idToDelete);
+            displayProducts();
+        };
+
+        // 5. Event Listener untuk tombol tambah
+        document.getElementById("addProduct").addEventListener("click", addProduct);
+
+        // Contoh Rest Parameter (Fungsi tambahan untuk menghitung total harga)
+        const calculateTotal = (...allPrices) => {
+            return allPrices.reduce((total, p) => total + p, 0);
+        };
+
+        // Jalankan tampilan awal
+        displayProducts();
+    </script>
+</body>
+
+</html>
